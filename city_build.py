@@ -119,6 +119,14 @@ br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=4)
 br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
 
 for city in cities:
+	## Initialize percentage counter
+	percent = piX / pi100
+	bar_length = 50
+	hashes = '#' * int(round(percent * bar_length))
+	spaces = ' ' * (bar_length - len(hashes))
+	sys.stdout.write("\rPercent: [{0}] {1}%".format(hashes + spaces, int(round(percent * 100))))
+	sys.stdout.flush()
+
 	### Variables for Template
 	## LowerCaseUnderscore
 	lcu = city.replace(' ', '_')	
@@ -140,28 +148,17 @@ for city in cities:
 	### This needs to be refactored for cities with no info on city-data.
 	##
 	#
-	def openPage(e):
-		try:
-			r = br.open('http://www.city-data.com/city/'+ucd+'-California.html')
-		except Exception:
-			e = e + 1
-			if e < 3:
-				time.sleep(1)
-				openPage(e)
-			else:
-				print 'Mechanize failed to connect.'
-	openPage(0)
-
+	r = br.open('http://www.city-data.com/city/'+ucd+'-California.html')
 	cData = r.read()
 	cSoup = BeautifulSoup(cData, 'lxml')
-
+	
 	# Statistical Variables
 	pop  = str(cSoup.find("b", text=re.compile("Population in")).next_sibling.replace(' ', '').replace('.', ''))
 	age  = str(cSoup.find(text=re.compile("Median resident age")).parent.parent.next_sibling.get_text().replace(u'\xa0', u'').replace(' years', ''))
 	inc  = str(cSoup.find(text=re.compile("median household income")).parent.next_sibling.replace(' ', '').replace('(', ''))
 	home = str(cSoup.find(text=re.compile("median house or condo value")).parent.next_sibling.replace(' ', '').replace('(', ''))
 
-	Image check
+	# Image check
 	hasImg = cSoup.find('a', href=re.compile('picfiles'))
 
 	if hasImg:
@@ -299,10 +296,5 @@ for city in cities:
 	cPage.write(cTempR)
 	cPage.close()
 
-	## Write percentage complete
+	## add one to percentage complete
 	piX = piX + 1.0
-  percent = piX / pi100
-  hashes = '#' * int(round(percent * bar_length))
-  spaces = ' ' * (bar_length - len(hashes))
-  sys.stdout.write("\rPercent: [{0}] {1}%".format(hashes + spaces, int(round(percent * 100))))
-  sys.stdout.flush()
