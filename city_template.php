@@ -190,7 +190,7 @@ $f3media = "100x80.gif";
   </div>
 <div id="main" class="local">
   <div id="content">
-    <h1 class="template_header">UpperCaseSpace Movers</h1>
+    <h1 class="template_header">UpperCaseSpace Movers<span></span></h1>
     <div class="main local">
       <div class="main article">
 
