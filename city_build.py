@@ -37,7 +37,7 @@ cities = [
 	"meiners oaks", 
 	"casa conejo", 
 	"channel islands beach", 
-	"saticoy", #
+	# "saticoy", #
 	"santa maria", 
 	"santa barbara", 
 	"lompoc", 
@@ -50,12 +50,12 @@ cities = [
 	"santa ynez", 
 	"mission canyon", 
 	"los alamos", 
-	"los olivos", #
-	"new cuyama", #
-	"ballard", #
-	"sisquoc", #
-	"casmalia", #
-	"garey", #
+	# "los olivos", #
+	# "new cuyama", #
+	# "ballard", #
+	# "sisquoc", #
+	# "casmalia", #
+	# "garey", #
 	"cuyama", 
 	"riverside", 
 	"moreno valley", 
@@ -63,10 +63,10 @@ cities = [
 	"murrieta", 
 	"temecula", 
 	"hemet", 
-	"menifee", #
+	# "menifee", #
 	"indio", 
 	"perris", 
-	"eastvale", #
+	# "eastvale", #
 	"lake elsinore", 
 	"cathedral city", 
 	"palm desert", 
@@ -121,7 +121,7 @@ br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.
 for city in cities:
 	## Initialize percentage counter
 	percent = piX / pi100
-	bar_length = 50
+	bar_length = 45
 	hashes = '#' * int(round(percent * bar_length))
 	spaces = ' ' * (bar_length - len(hashes))
 	sys.stdout.write("\rPercent: [{0}] {1}%".format(hashes + spaces, int(round(percent * 100))))
@@ -298,3 +298,10 @@ for city in cities:
 
 	## add one to percentage complete
 	piX = piX + 1.0
+
+# 100% !
+percent = 1
+hashes = '#' * int(round(percent * bar_length))
+spaces = ' ' * (bar_length - len(hashes))
+sys.stdout.write("\rPercent: [{0}] {1}%".format(hashes + spaces, int(round(percent * 100))))
+sys.stdout.flush()
